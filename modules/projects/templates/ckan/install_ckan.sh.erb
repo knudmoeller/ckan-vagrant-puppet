@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# create virtual environment
+virtualenv --no-site-packages ~/<%= virtualenv_name %>
+
+# activate virtual environment
+. ~/<%= virtualenv_name %>/bin/activate
+
+# install CKAN from github
+pip install -e 'git+https://github.com/okfn/ckan.git@<%= ckan_release %>#egg=ckan'
+
+# some additional python modules required by CKAN
+pip install -r ~/<%= virtualenv_name %>/src/ckan/pip-requirements.txt

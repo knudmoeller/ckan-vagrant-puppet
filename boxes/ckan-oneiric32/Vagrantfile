@@ -1,0 +1,21 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant::Config.run do |config|
+  config.vm.define :devbox do |devbox|
+    devbox.vm.box = "oneiric32"
+    # uncomment the following line if you want the box to start in gui mode
+    devbox.vm.network :hostonly, "33.33.33.10"
+    devbox.ssh.forward_agent = true
+    config.vm.forward_port 80, 8080
+    
+    devbox.vm.provision :puppet do |puppet|
+      puppet.manifests_path = "./"
+      puppet.manifest_file = "manifest.pp"
+      puppet.module_path = "../../modules"
+      #puppet.options = "--verbose --debug"
+    end
+  end
+
+
+end
